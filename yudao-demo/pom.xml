@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>cn.iocoder</groupId>
+    <artifactId>yudao-example</artifactId>
+    <version>${revision}</version>
+    <packaging>pom</packaging>
+    <modules>
+        <!-- SSO 单点登录 -->
+        <module>yudao-sso-demo-by-code</module>
+        <module>yudao-sso-demo-by-password</module>
+        <!-- 前端直接预览 -->
+        <module>yudao-ui-admin-vue2</module>
+        <module>yudao-ui-admin-vue3</module>
+        <module>yudao-ui-admin-vben</module>
+    </modules>
+
+    <name>${project.artifactId}</name>
+    <description>芋道 demo 示例项目，例如说：SSO 单点登录、前端直接预览</description>
+    <url>https://github.com/YunaiV/ruoyi-vue-pro</url>
+
+</project>

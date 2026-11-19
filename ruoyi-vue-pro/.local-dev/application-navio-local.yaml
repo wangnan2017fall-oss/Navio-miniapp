@@ -1,0 +1,136 @@
+# Local development only. Start with --spring.profiles.active=navio-local and
+# --spring.config.additional-location=file:/absolute/path/to/this/file.
+# Do not activate the bundled dev/local profiles alongside this profile.
+spring:
+  config:
+    activate:
+      on-profile: navio-local
+  datasource:
+    druid:
+      web-stat-filter:
+        enabled: false
+      stat-view-servlet:
+        enabled: false
+    dynamic:
+      primary: master
+      strict: true
+      druid:
+        initial-size: 1
+        min-idle: 1
+        max-active: 10
+        max-wait: 10000
+        validation-query: SELECT 1
+      datasource:
+        master:
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://127.0.0.1:13306/navio_mall?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+          username: ${NAVIO_DB_USER:root}
+          password: ${NAVIO_DB_PASSWORD}
+        slave:
+          lazy: true
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://127.0.0.1:13306/navio_mall?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+          username: ${NAVIO_DB_USER:root}
+          password: ${NAVIO_DB_PASSWORD}
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 16379
+      database: 0
+      password: "${NAVIO_REDIS_PASSWORD:}"
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.quartz.QuartzAutoConfiguration
+      - org.springframework.ai.vectorstore.qdrant.autoconfigure.QdrantVectorStoreAutoConfiguration
+      - org.springframework.ai.vectorstore.milvus.autoconfigure.MilvusVectorStoreAutoConfiguration
+  quartz:
+    auto-startup: false
+  boot:
+    admin:
+      client:
+        enabled: false
+
+server:
+  address: 127.0.0.1
+  port: 48080
+
+logging:
+  file:
+    name: ${NAVIO_DEV_HOME:/Users/luke/DigitalWorkspace/Navio-miniapp1116/ruoyi-vue-pro/.local-dev}/logs/backend.log
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+yudao:
+  # Non-secret placeholder for required trade configuration injection.
+  tencent-lbs-key: local-not-configured
+  tenant:
+    # Keep tenant isolation. The mini-program sends tenant-id: 1;
+    # tenant 1 itself must be present in the local database seed.
+    enable: true
+  captcha:
+    enable: false
+  security:
+    mock-enable: false
+  access-log:
+    enable: false
+  metrics:
+    enable: false
+  tracer:
+    enable: false
+  web:
+    admin-ui:
+      url: http://127.0.0.1:3000
+  pay:
+    order-notify-url: http://127.0.0.1:48080/admin-api/pay/notify/order
+    refund-notify-url: http://127.0.0.1:48080/admin-api/pay/notify/refund
+    transfer-notify-url: http://127.0.0.1:48080/admin-api/pay/notify/transfer
+  trade:
+    order:
+      status-sync-to-wxa-enable: false
+    express:
+      client: NOT_PROVIDE
+      # These are disabled-client placeholders, not service credentials.
+      # The nested properties still undergo @NotEmpty validation.
+      kd-niao:
+        business-id: local-not-configured
+        api-key: local-not-configured
+        request-type: "1002"
+      kd100:
+        customer: local-not-configured
+        key: local-not-configured
+  demo: false
+
+justauth:
+  enabled: false
+  cache:
+    type: REDIS
+    prefix: "navio_local_social_auth_state:"
+    timeout: 24h
+
+# Keep the required SDK beans, without real application credentials.
+# Route these default SDK beans to localhost. Database-defined clients are separate.
+wx:
+  mp:
+    app-id: navio-local-mp
+    secret: local-not-configured
+    config-storage:
+      type: RedisTemplate
+      key-prefix: navio-local-wx-mp
+      http-client-type: HttpComponents
+    hosts:
+      api-host: http://127.0.0.1:48080
+      open-host: http://127.0.0.1:48080
+      mp-host: http://127.0.0.1:48080
+  miniapp:
+    appid: navio-local-miniapp
+    secret: local-not-configured
+    api-host-url: http://127.0.0.1:48080
+    access-token-url: http://127.0.0.1:48080/local-disabled/wechat/access-token
+    config-storage:
+      type: RedisTemplate
+      key-prefix: navio-local-wx-miniapp
+      http-client-type: HttpComponents

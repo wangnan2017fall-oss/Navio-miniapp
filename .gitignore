@@ -1,0 +1,24 @@
+# Local secrets and generated state
+.local-runtime/
+**/node_modules/
+**/target/
+**/unpackage/
+**/__pycache__/
+**/*.pyc
+**/.DS_Store
+**/*.log
+**/.env
+**/.env.*
+!**/.env.example
+!**/.env.*.example
+**/.local-dev/data/
+**/.local-dev/logs/
+**/.local-dev/run/
+**/.local-dev/tool-home/
+**/.local-dev/m2/
+**/.local-dev/secrets.json
+**/.local-dev/processes.json
+**/.local-dev/redis.conf
+**/.local-dev/*.sock
+**/.local-dev/*.lock
+**/.local-dev/verification-result.json

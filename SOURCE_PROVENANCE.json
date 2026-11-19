@@ -1,0 +1,59 @@
+{
+  "snapshot_date": "2026-11-19",
+  "snapshot_type": "working-tree source snapshot; upstream Git histories are not included",
+  "projects": [
+    {
+      "directory": "ruoyi-vue-pro",
+      "role": "Java商城后端",
+      "upstream": "https://github.com/YunaiV/ruoyi-vue-pro.git",
+      "upstream_commit": "4db71a7d9a5a394cb8c0ead2fb38ff6c1f9ec2a1",
+      "downloaded_tracked_files": 9363,
+      "downloaded_tracked_bytes": 71336455,
+      "scope": "complete tracked working tree",
+      "local_modified_paths": [
+        ".gitignore",
+        "pom.xml",
+        "yudao-server/pom.xml"
+      ]
+    },
+    {
+      "directory": "yudao-mall-uniapp",
+      "role": "uni-app微信小程序前端",
+      "upstream": "https://github.com/yudaocode/yudao-mall-uniapp.git",
+      "upstream_commit": "9b3af4106719c080290f46eb9f6ffe86e67247a8",
+      "downloaded_tracked_files": 585,
+      "downloaded_tracked_bytes": 4544308,
+      "scope": "complete tracked working tree",
+      "local_modified_paths": [
+        "manifest.json"
+      ]
+    },
+    {
+      "directory": "yudao-ui-admin-vue3",
+      "role": "Vue3商城管理后台",
+      "upstream": "https://github.com/yudaocode/yudao-ui-admin-vue3.git",
+      "upstream_commit": "c67f1345e8139f194ecb40a5d5ba11e9a939d020",
+      "downloaded_tracked_files": 3244,
+      "downloaded_tracked_bytes": 30876782,
+      "scope": "complete tracked working tree",
+      "local_modified_paths": []
+    },
+    {
+      "directory": "yudao-demo",
+      "role": "此前下载的商城静态演示资源",
+      "upstream": "https://gitee.com/yudaocode/yudao-demo.git",
+      "upstream_commit": "fe51611464b1af130a31881cbb8ffc41451a1a29",
+      "downloaded_tracked_files": 210,
+      "downloaded_tracked_bytes": 4332059,
+      "scope": "sparse checkout: yudao-static/mall plus root metadata",
+      "local_modified_paths": []
+    }
+  ],
+  "excluded": "runtime credentials, databases, logs, tool and dependency caches, locally generated build output, actual environment files and production configuration; safe templates and source-only local bootstrap helpers are provided",
+  "publication_adjustments": {
+    "environment_files": "Actual .env files replaced by safe example templates; production .env not read or exported",
+    "sanitized_configurations": 9,
+    "upstream_test_credentials_replaced_by_environment_variables": 36,
+    "runtime_state": "Not exported; source-only local bootstrap helpers retained"
+  }
+}
