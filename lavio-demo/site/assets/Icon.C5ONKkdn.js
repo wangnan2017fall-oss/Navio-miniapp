@@ -1,0 +1,1 @@
+import{k as s,g as a,Y as t}from"./index-FtiqtWHq.js";import{a as o}from"./s-layout.DvonTZY1.js";const e=o({__name:"Icon",props:{name:{type:String,default:"order"}},setup:o=>(e,r)=>{const c=t;return s(),a(c,{class:"l-icon",src:"/Navio-miniapp/static/lavio/icons/"+o.name+"-active.svg",mode:"aspectFit"},null,8,["src"])}},[["__scopeId","data-v-d26fba6d"]]);export{e as I};
