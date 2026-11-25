@@ -1,0 +1,55 @@
+name: Publish LAVIO Demo to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'lavio-demo/**'
+      - '.github/workflows/lavio-demo-pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lavio-pages
+  cancel-in-progress: false
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Check out the project
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Prepare verified static demo
+        run: python3 lavio-demo/prepare_pages.py --manifest lavio-demo/manifest.json --output lavio-demo/site
+      - name: Retain the complete demo in GitHub
+        shell: python
+        run: |
+          import subprocess
+          subprocess.run(['git', 'add', '--', 'lavio-demo/site'], check=True)
+          changed = subprocess.run(['git', 'diff', '--cached', '--quiet']).returncode
+          if changed:
+              subprocess.run(['git', '-c', 'user.name=github-actions[bot]', '-c', 'user.email=41898282+github-actions[bot]@users.noreply.github.com', 'commit', '-m', 'Store verified LAVIO demo assets for GitHub Pages'], check=True)
+              subprocess.run(['git', 'push', 'origin', 'HEAD:main'], check=True)
+      - name: Upload the static website
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: lavio-demo/site
+  deploy:
+    needs: prepare
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.publish.outputs.page_url }}
+    steps:
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Publish the demo
+        id: publish
+        uses: actions/deploy-pages@v5
